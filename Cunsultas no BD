@@ -1,0 +1,116 @@
+
+-- Cursos
+INSERT INTO curso (nome) VALUES
+('Sistemas de Informação'),
+('Administração'),
+('Direito');
+-- Professores
+INSERT INTO professor (nome, titulacao) VALUES
+('Carlos Silva', 'Mestre'),
+('Ana Souza', 'Doutora'),
+('João Lima', 'Especialista');
+-- Disciplinas
+INSERT INTO disciplina (nome, carga_horaria, id_curso) VALUES
+('Banco de Dados', 60, 1),
+('Algoritmos', 80, 1),
+('Marketing', 60, 2),
+('Direito Civil', 70, 3);
+-- Alunos
+INSERT INTO aluno (nome, data_nascimento, id_curso) VALUES
+('Maria Oliveira', '2000-05-10', 1),
+('Pedro Santos', '1999-08-20', 1),
+('Juliana Costa', '2001-03-15', 2),
+('Lucas Mendes', '2000-11-01', 3);
+-- Ofertas
+INSERT INTO oferta (id_disciplina, id_professor, semestre) VALUES
+(1, 1, '2024.1'),
+(2, 2, '2024.1'),
+(3, 3, '2024.1'),
+(4, 1, '2024.1');
+-- Matrículas
+INSERT INTO matricula (id_aluno, id_oferta, nota, frequencia) VALUES
+(1, 1, 8.5, 90),
+(2, 1, 7.0, 80),
+(1, 2, 9.0, 95),
+(3, 3, 6.5, 75),
+(4, 4, 7.5, 85); 
+
+_________________________________________________________________________________________________
+
+
+🔹 Nível básico
+
+1. Liste todos os alunos:  select * from aluno;
+
+2. Liste todos os cursos: select * from curso;
+
+3. Liste nome e titulação dos professores:  select nome,titulacao from professor;
+
+4. Liste todas as disciplinas com carga horária:  select nome, carga_horaria from Disciplina;
+
+5. Liste alunos com seu curso:  select a.nome, c.nome from aluno a inner join curso c
+on(a.id_curso=c.id);
+
+
+----------------------------------------------------------------
+
+🔹 Nível intermediário
+
+6. Liste disciplinas com nome do curso:  select d.nome, c.nome from disciplina d inner join curso c
+on (d.id_curso=c.id); 
+
+
+7. Liste alunos matriculados com nota:  select a.nome, m.nota from aluno a inner join matricula m
+on (a.id = m.id_aluno);
+
+
+8. Liste alunos com frequência maior que 80:  select a.nome, m.frequencia from aluno a inner join matricula m 
+on (a.id = m.id_aluno)
+where m.frequencia >80;
+
+
+9. Liste professores que ministram disciplinas: select p.nome, d.nome from oferta as o
+inner join disciplina as d on d.id = o.id_disciplina
+inner join professor as p on p.id = o.id_professor
+
+
+10. Liste disciplinas ofertadas no semestre '2024.1'
+
+----------------------------------------------------------------
+
+🔹 Nível avançado
+
+11. Média das notas por aluno:  select a.nome, ROUND(avg (nota) ::numeric,2) as media
+from matricula m
+inner join aluno as a on a.id = m.id_aluno
+group by a.nome;
+
+
+
+12. Média das notas por disciplinae:  select d.nome, ROUND(avg (nota) ::numeric,2) as media
+from matricula m
+inner join disciplina as d on d.id = m.id_aluno
+group by d.nome;
+
+13. Alunos com nota maior que 8: select a.nome, m.nota from aluno a
+inner join matricula m 
+on(a.id=m.id_aluno)
+where m.nota >8
+
+14. Quantidade de alunos por curso: 
+
+15. Professor que mais oferta disciplinas:
+
+-----------------------------------------------------------------
+
+🔹 Nível mais avançado
+
+16. Alunos que não estão matriculados:
+
+17. Disciplinas sem oferta:
+
+18. Alunos reprovados (nota < 7 ou frequência < 75):
+
+19. Nome do aluno, disciplina e professor:
+
+20. Ranking de alunos por nota :
